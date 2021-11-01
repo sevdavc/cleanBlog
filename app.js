@@ -20,8 +20,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //Routes
-app.get('/', (req, res) => {
-  res.render('index');
+app.get('/', async (req, res) => {
+  const allposts = await postData.find();
+  res.render('index', {
+    allposts,
+  });
 });
 
 app.get('/about', (req, res) => {
@@ -32,8 +35,15 @@ app.get('/add_post', (req, res) => {
   res.render('add_post');
 });
 
-app.post('/add_post', (req, res) => {
-  console.log(req.body);
+app.get('/allposts/:id', async (req, res) => {
+  const allp = await postData.findById(req.params.id);
+  res.render('post', {
+    allp,
+  });
+});
+
+app.post('/add_post', async (req, res) => {
+  await postData.create(req.body);
   res.redirect('/');
 });
 
