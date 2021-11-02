@@ -4,6 +4,7 @@ const postData = require('./models/postData');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const postController = require('./controllers/postController');
+const pageController = require('./controllers/pageController');
 
 const app = express();
 
@@ -29,24 +30,12 @@ app.use(
 //Routes
 app.get('/', postController.getAllPosts);
 app.get('/allposts/:id', postController.getPost);
+app.get('/about', pageController.getAboutPage);
+app.get('/add_post', pageController.getAddpostPage);
+app.get('/allposts/edit/:id', pageController.getEditPage);
 app.post('/add_post', postController.createPost);
 app.put('/allposts/:id', postController.updatePost);
 app.delete('/allposts/:id', postController.deletePost);
-
-app.get('/about', (req, res) => {
-  res.render('about');
-});
-
-app.get('/add_post', (req, res) => {
-  res.render('add_post');
-});
-
-app.get('/allposts/edit/:id', async (req, res) => {
-  const allp = await postData.findOne({ _id: req.params.id });
-  res.render('edit', {
-    allp,
-  });
-});
 
 app.listen(5000, () => {
   console.log('Port opened.');
