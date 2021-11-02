@@ -13,7 +13,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading">
-            <h1>Add New Post</h1>
+            <h1>Edit the Post</h1>
 
           </div>
         </div>
@@ -25,24 +25,24 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <form novalidate method="POST" action="/add_post">
+        <form novalidate method="POST" action="/allposts/<%= allp._id %>?_method=PUT">
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Post Title</label>
-              <input type="text" name="title" class="form-control" placeholder="Name" id="name" required>
+              <input type="text" name="title" value="<%= allp.title %>"class="form-control" placeholder="Name" id="name" required>
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Post Detail</label>
-              <textarea rows="5" name="detail" class="form-control" placeholder="Message" id="message" required ></textarea>
+              <textarea rows="5" name="detail" class="form-control" placeholder="Message" id="message" required ><%= allp.detail %></textarea>
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <br>
           <div id="success"></div>
-          <button type="submit" class="btn btn-primary" id="sendMessageButton">Send</button>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Update</button>
         </form>
       </div>
     </div>
@@ -52,12 +52,9 @@
 
   <%- include('partials/_footer') -%>
 
-
   <!-- Contact Form JavaScript -->
   <script src="/js/jqBootstrapValidation.js"></script>
   <script src="/js/contact_me.js"></script>
-
-
 
 </body>
 
