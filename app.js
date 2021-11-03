@@ -9,10 +9,20 @@ const pageController = require('./controllers/pageController');
 const app = express();
 
 //Database Connection
-mongoose.connect('mongodb://localhost/cleanBlogDatabase', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose
+  .connect(
+    'mongodb+srv://sevda:7691552@pcatcluster.bhewm.mongodb.net/pcatCluster?retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+  )
+  .then(() => {
+    console.log('db connected');
+  })
+  .catch((err) => {
+    console.log('connection failed');
+  });
 
 //Template Engine
 app.set('view engine', 'ejs');
@@ -37,6 +47,6 @@ app.post('/add_post', postController.createPost);
 app.put('/allposts/:id', postController.updatePost);
 app.delete('/allposts/:id', postController.deletePost);
 
-app.listen(5000, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log('Port opened.');
 });
