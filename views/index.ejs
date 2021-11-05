@@ -40,7 +40,14 @@
         <% } %>
         <!-- Pager -->
         <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+          <% if(current==1) { %>
+            <a class="btn btn-primary float-right" href="/?page=<%=parseInt(current)+1%>">Older Posts &rarr;</a>
+          <% } else if(current==pages) { %>
+            <a class="btn btn-primary float-left" href="/?page=<%=current-1%>">&larr; Newer Posts </a>
+          <% } else{ %>
+            <a class="btn btn-primary float-right" href="/?page=<%=parseInt(current)+1%>">Older Posts &rarr;</a>
+            <a class="btn btn-primary float-left" href="/?page=<%=current-1%>">&larr; Newer Posts </a>
+          <% } %>
         </div>
       </div>
     </div>

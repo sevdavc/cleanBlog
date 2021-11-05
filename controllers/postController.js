@@ -1,9 +1,19 @@
 const postData = require('../models/postData');
 
 exports.getAllPosts = async (req, res) => {
-  const allposts = await postData.find({}).sort('-dateCreated');
+  const page = req.query.page || 1;
+  const postperpage = 2;
+  const totalpost = await postData.find().countDocuments();
+  const pages = Math.ceil(totalpost / postperpage);
+  const allposts = await postData
+    .find({})
+    .sort('-dateCreated')
+    .skip((page - 1) * postperpage)
+    .limit(postperpage);
   res.render('index', {
     allposts,
+    current: page,
+    pages,
   });
 };
 
